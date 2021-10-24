@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from 'react';
-import './App.css';
+import { AppStyles, Header } from './App.styles';
 import { useAppDispatch } from './app/hooks';
 import { saveTodo } from './featureSlices/todosSlice';
 import { InputSection } from './stories/InputSection';
@@ -18,10 +18,19 @@ function App() {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <InputSection passedRef={inputRef} />
-      <TodosSection />
-    </form>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div>
+        <Header>
+          <div>To Do List: </div>
+        </Header>
+        <AppStyles>
+          <form onSubmit={handleSubmit}>
+            <InputSection passedRef={inputRef} />
+            <TodosSection />
+          </form>
+        </AppStyles>
+      </div>
+    </div>
   );
 }
 
