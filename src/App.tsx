@@ -14,6 +14,7 @@ function App() {
     if (input && input.current && input.current.value) {
       console.log(input.current.value);
       dispatch(saveTodo(input.current.value));
+      input.current.value = '';
     }
   };
   return (
