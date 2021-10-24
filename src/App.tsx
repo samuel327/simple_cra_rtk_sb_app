@@ -1,32 +1,26 @@
 import { FormEvent, useRef } from 'react';
 import './App.css';
-import { useAppDispatch, useAppSelector } from './app/hooks';
+import { useAppDispatch } from './app/hooks';
 import { saveTodo } from './featureSlices/todosSlice';
+import { InputSection } from './stories/InputSection';
+import { TodosSection } from './stories/TodosSection';
 
 function App() {
-  const input = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const todos = useAppSelector((state) => state.todos.value);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (input && input.current && input.current.value) {
-      console.log(input.current.value);
-      dispatch(saveTodo(input.current.value));
-      input.current.value = '';
+    if (inputRef && inputRef.current && inputRef.current.value) {
+      dispatch(saveTodo(inputRef.current.value));
+      inputRef.current.value = '';
     }
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex' }}>
-        <input ref={input} />
-        <button>Submit</button>
-      </div>
-
-      {todos.map((todo, index) => (
-        <p key={index}>{todo}</p>
-      ))}
+      <InputSection passedRef={inputRef} />
+      <TodosSection />
     </form>
   );
 }
